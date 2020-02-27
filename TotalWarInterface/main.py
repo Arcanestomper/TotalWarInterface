@@ -1,6 +1,4 @@
-from flask import Flask, request, render_template, redirect
-from flask import url_for
-from markupsafe import escape
+from flask import Flask, request, render_template, redirect, url_for
 
 import sqlite3 
 import SQLExample
@@ -184,6 +182,6 @@ def DeleteFaction ():
 
 if __name__ == '__main__':
     # Run the app server on localhost:4449
-    app.run('localhost', 4449)
+    app.run(debug="True")
 
 

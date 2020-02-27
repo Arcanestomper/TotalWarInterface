@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>41f71f08-8826-45ad-aeb8-8bb05628544b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>WebInterface.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -12,7 +12,8 @@
     <Name>TotalWarInterface</Name>
     <RootNamespace>TotalWarInterface</RootNamespace>
     <LaunchProvider>Web launcher</LaunchProvider>
-    <WebBrowserPort>4449</WebBrowserPort>
+    <WebBrowserPort>
+    </WebBrowserPort>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,18 +24,27 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="appengine_config.py" />
     <Compile Include="SQLExample.py" />
     <Compile Include="StatisticFunctions.py" />
     <Compile Include="TotalWarInterface.py" />
-    <Compile Include="WebInterface.py" />
+    <Compile Include="main.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\css\" />
     <Folder Include="Templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.yaml" />
+    <Content Include="requirements.txt" />
+    <Content Include="static\css\template.css" />
+    <Content Include="Templates\about.html" />
     <Content Include="Templates\FactionSelection.html" />
+    <Content Include="Templates\home.html" />
     <Content Include="Templates\StatUpdate.html" />
     <Content Include="Templates\StatView.html" />
+    <Content Include="Templates\template.html" />
     <Content Include="Templates\TestForm.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
