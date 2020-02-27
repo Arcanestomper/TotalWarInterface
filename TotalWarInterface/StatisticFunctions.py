@@ -1,14 +1,21 @@
 import sqlite3
 import SQLExample
 
-def UpdateFactionStats(cursor):
-    fname = input("Choose a Faction: ")
+def UpdateFactionStats(fname, ftype, ftier, stat, newvalue):
+
+    
+    # connecting to the database  
+    connection = sqlite3.connect("myTable.db") 
+  
+    # cursor  
+    cursor = connection.cursor() 
+    #fname = input("Choose a Faction: ")
     #Faction does not have to be validated as a new faction will result in a new row
     validate = 0
     while validate < 5:
         print("1: Production")
         print("2: Prototype")
-        ftype = input("Choose a Type: ")
+        #ftype = input("Choose a Type: ")
         if ftype == "1" or ftype == "Production":
             ftype = "Production"
             break
@@ -21,10 +28,11 @@ def UpdateFactionStats(cursor):
     if validate == 5:
         print("Input Failed")
         return
+
     #Validate Type
     validate = 0
     while validate < 5:
-        ftier = input("Choose a Tier: ")
+        #ftier = input("Choose a Tier: ")
         try:
             x = int(ftier) 
         except ValueError:
@@ -40,6 +48,7 @@ def UpdateFactionStats(cursor):
         print("Input Failed")
         return
 
+    validate = 0
     #Validate Stat
     while validate < 5:
         print("1: Navy")
@@ -47,19 +56,21 @@ def UpdateFactionStats(cursor):
         print("3: Market")
         print("4: University")
         print("5: Court")
-        stat = input("Choose a Statistic: ")
-        if stat == "1" or stat == "Navy":
+        
+        #stat = input("Choose a Statistic: ")
+        if stat == "1" or stat == "navy":
             stat = "navy"
             break
-        elif stat == "2" or stat == "Agency":
+        elif stat == "2" or stat == "agency":
             stat = "agency"
             break
-        elif stat == "3" or stat == "Market":
+        elif stat == "3" or stat == "market":
             stat = "market"
             break
-        elif stat == "4" or stat == "University":
+        elif stat == "4" or stat == "university":
             stat = "university"
-        elif stat == "5" or stat == "Court":
+            break
+        elif stat == "5" or stat == "court":
             stat = "court"
             break
         else:
@@ -68,19 +79,21 @@ def UpdateFactionStats(cursor):
     if validate == 5:
         print("Input Failed")
         return
+    print(stat)
+
     #Validate Value
     validate = 0
     while validate < 5:
-        newvalue = input("Choose a Value: ")
+        #newvalue = input("Choose a Value: ")
         try:
             x = int(newvalue) 
         except ValueError:
             validate = validate + 1
             print("Invalid Input: Attempts Remaining {0}".format(5 - validate))
         else:
-            if x < 1:
+            if x < 0:
                 validate = validate + 1
-                print("Invalid Input: Attempts Remaining {0}".format(5 - validate))
+                print("Negative Input: Attempts Remaining {0}".format(5 - validate))
             else:
                 break
     if validate == 5:
@@ -90,17 +103,43 @@ def UpdateFactionStats(cursor):
     #All Validation Passed
     print("All Validation Passed")
     SQLExample.ModifyStat(cursor,fname,ftype,ftier,stat,newvalue)
+
+    # To save the changes in the files. Never skip this.  
+    # If we skip this, nothing will be saved in the database. 
+    connection.commit() 
+  
+    # close the connection 
+    connection.close() 
     return
 
-def DisplayAllStats(cursor):
+def DisplayAllStats():
+    # connecting to the database  
+    connection = sqlite3.connect("myTable.db") 
+  
+    # cursor  
+    crsr = connection.cursor() 
+
     print("Displaying All Stats")
-    rows = SQLExample.SelectAllTable(cursor,"Statistics")
+    rows = SQLExample.SelectAllTable(crsr,"Statistics")
     FormatDisplay(rows)
 
-    return
+    # To save the changes in the files. Never skip this.  
+    # If we skip this, nothing will be saved in the database. 
+    connection.commit() 
+  
+    # close the connection 
+    connection.close() 
 
-def DisplayFactionStats(cursor):
-    fname = input("Choose a Faction: ")
+    return rows
+
+def DisplayFactionStats(fname):
+    # connecting to the database  
+    connection = sqlite3.connect("myTable.db") 
+  
+    # cursor  
+    cursor = connection.cursor() 
+
+    #fname = input("Choose a Faction: ")
     #import sqlite3
     #sql_command = str(""" SELECT findex FROM Statistics WHERE faction = '{0}' AND type = '{1}' AND tier = {2}""".format(faction,type,tier))
     sql_command = str("""SELECT * FROM Statistics WHERE faction = '{0}'""".format(fname))
@@ -118,9 +157,23 @@ def DisplayFactionStats(cursor):
 
     FormatDisplay(rows)
 
-def DeleteFaction(cursor):
-    fname = input("Choose a Faction: ")
-    verify = input ("Confirm Deletion of: {0} (Y/N)".format(fname))
+    # To save the changes in the files. Never skip this.  
+    # If we skip this, nothing will be saved in the database. 
+    connection.commit() 
+  
+    # close the connection 
+    connection.close() 
+    return rows
+
+def DeleteFaction(fname, verify):
+    # connecting to the database  
+    connection = sqlite3.connect("myTable.db") 
+  
+    # cursor  
+    cursor = connection.cursor() 
+
+    #fname = input("Choose a Faction: ")
+    #verify = input ("Confirm Deletion of: {0} (Y/N)".format(fname))
     if verify == "Y":
         print("Deleting {0}".format(fname))
     else:
@@ -135,6 +188,13 @@ def DeleteFaction(cursor):
         cursor.execute(sql_command) 
     except sqlite3.IntegrityError as err:
         print("CreateTable: IntegrityError {0}".format(err)) 
+
+    # To save the changes in the files. Never skip this.  
+    # If we skip this, nothing will be saved in the database. 
+    connection.commit() 
+  
+    # close the connection 
+    connection.close() 
 
 
 def FormatDisplay(rows):

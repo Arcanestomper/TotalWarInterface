@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form method="post" action=".">
+        <input type="text" id="Faction" name="fname" value="Test Faction">
+        <label for="Faction">Enter Faction</label><br>
+
+        <input type="radio" id="TypePrototype" name="ftype" value="1" checked>
+        <label for="TypePrototype">Prototype</label><br>
+        <input type="radio" id="TypeProduction" name="ftype" value="2">
+        <label for="TypeProduction">Production</label><br>
+
+
+        <input type="number" id="Tier" name="ftier" value="0" min="1" max="10" value="1">
+        <label for="Tier">Tier</label><br>
+
+        <input type="radio" id="Navy" name="stat" value="1" checked>
+        <label for="Navy">Navy</label><br>
+        <input type="radio" id="Agency" name="stat" value="2">
+        <label for="Agency">Agency</label><br>
+        <input type="radio" id="Market" name="stat" value="3">
+        <label for="Market">Market</label><br>
+        <input type="radio" id="University" name="stat" value="4">
+        <label for="University">University</label><br>
+        <input type="radio" id="Court" name="stat" value="5">
+        <label for="Court">Court</label><br>
+
+        <input type="number" id="Value" name="newvalue" value="0" min="0">
+        <label for="Value">New Value</label><br>
+
+        <p><input type="submit" value="Submit Operation" /></p>
+    </form>
+</body>
+</html>

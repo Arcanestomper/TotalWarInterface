@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Hello from Flask</title>
+    {% if name %}
+    <h1>Hello {{ name }}!</h1>
+    {% else %}
+    <h1>Hello, World!</h1>
+    {% endif %}
+</head>
+<body>
+    <form action="test.php" method="get">
+        <input type="text" name="name" />
+        <input type="submit" />
+    </form>
+</body>
+</html>

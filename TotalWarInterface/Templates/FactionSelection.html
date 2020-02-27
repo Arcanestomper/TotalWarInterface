@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form method="post" action=".">
+        <input type="text" id="Faction" name="fname" value="Test Faction">
+        <label for="Faction">Enter Faction</label><br>
+
+        {% if delete == True %}
+        <p>Confirm Deletion</p>
+        <input type="radio" id="Yes" name="verify" value="Y">
+        <label for="Yes">Yes</label><br>
+        <input type="radio" id="No" name="verify" value="N" checked>
+        <label for="No">No</label><br>
+        {% endif %}
+
+        <p><input type="submit" value="Submit Operation" /></p>
+    </form>
+</body>
+</html>
